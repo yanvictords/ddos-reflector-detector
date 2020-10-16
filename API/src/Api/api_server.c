@@ -11,8 +11,6 @@ int _sckRaw;
 _Bool _running;
 
 void processConfiguration();
-void initConfiguration();
-void printConfiguration();
 void startApiServer();
 _Bool queryDnsFromThisIpToRouter (_Bool isLocal, struct sockaddr_in * host);
 _Bool ifLanIpAddress(struct in_addr ipAddr);
@@ -22,7 +20,7 @@ void * blackListSender(void * ipAddress);
 int main () {
 	clearConsole();
 	printf("\n***********************************************************\n");
-	printf("* Welcome to API Reflectors Detection! Author: Yan Victor *\n");
+	printf("* Welcome to API Reflectors Detection! Authors: Yan Victor and Guilherme Andreúce *\n");
 	printf("***********************************************************\n\n");
 
     processConfiguration();
@@ -128,7 +126,7 @@ void startApiServer () {
 
 _Bool queryDnsFromThisIpToRouter (_Bool isLocal, struct sockaddr_in * host) {
     // TODO: host pode variar
-	return isLocal && !strcmp(inet_ntoa(host->sin_addr), "192.168.15.1");
+	return isLocal && !strcmp(inet_ntoa(host->sin_addr), "192.168.1.108");
 }
 
 _Bool ifLanIpAddress (struct in_addr ipAddr) {
@@ -136,7 +134,7 @@ _Bool ifLanIpAddress (struct in_addr ipAddr) {
 
 	// Just for testings. The below ip address must be the client/reflector ip address used to testing
 	if (_DEBUG_MODE) {
-		_Bool localReflectors = strcmp(ip, "192.168.15.8") == 0;
+		_Bool localReflectors = strcmp(ip, "192.168.1.108") == 0;
 
 		return (!localReflectors && (strncmp("10", ip, strlen("10")) == 0
 			|| strncmp("172.16", ip, strlen("172.16")) == 0

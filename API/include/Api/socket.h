@@ -7,7 +7,7 @@
 #define _UDP 1
 #define _RAW_ETH 2
 
-#define _API_INTERFACE "wlp2s0"
+#define _API_INTERFACE "wlp4s0" 
 
 int createSocket (int type);
 void bindPort (int sck, struct sockaddr_in addr);

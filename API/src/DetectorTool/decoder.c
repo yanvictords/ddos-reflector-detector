@@ -2,24 +2,24 @@
 #include "../../include/DetectorTool/ui.h"
 #include "../../include/DetectorTool/identifier.h"
 
-long long decoder(int protocol,  char * buffer) {
+long long decoder (int protocol,  char * buffer) {
 	int operation;
 
 	switch (protocol) {
 		case _DNS:
-			operation = getDnsQueryType(buffer);
+			operation =		getDnsQueryType(buffer);
 			break;
-		case _NTP: // TODO
-			operation = getNtpQueryType(buffer);
+		case _NTP: 
+			operation = 	getNtpQueryType(buffer);
 			break;
 		case _SNMP: // TODO
-			operation = getSnmpQueryType(buffer);
+			operation = 	getSnmpQueryType(buffer);
 			break;
 		case _SSDP: // TODO
-			operation =	getSsdpQueryType(buffer);
+			operation =		getSsdpQueryType(buffer);
 			break;
 		default:
-			operation = _UNKNOWN_QUERY_TYPE;
+			operation = 	_UNKNOWN_QUERY_TYPE;
 	}
 
 	printQueryType(_MODULE_DECODER, operation);
@@ -40,18 +40,32 @@ int getDnsQueryType(char * buffer) {
 	return _UNKNOWN_QUERY_TYPE;
 }
 
-// TODO
-int getNtpQueryType(char * buffer) {
+int getNtpQueryType (char * buffer) {
+	struct NTP_HEADER *ntp;
+	
+	ntp = (struct NTP_HEADER*) buffer;
+
+	printf("start");
+	printf("|%d|", ntp->mode);
+	printf("end");
+
+	if (ntp->mode == _NTP_SERVER){
+		return _RESPONSE;
+	}
+	if (ntp->mode == _NTP_CLIENT){
+		return _REQUEST;
+	}
+
 	return _UNKNOWN_QUERY_TYPE;
 }
 
 // TODO
-int getSnmpQueryType(char * buffer) {
+int getSnmpQueryType (char * buffer) {
 	return _UNKNOWN_QUERY_TYPE;
 }
 
 // TODO
-int getSsdpQueryType(char * buffer) {
+int getSsdpQueryType (char * buffer) {
 	return _UNKNOWN_QUERY_TYPE;
 }
 
